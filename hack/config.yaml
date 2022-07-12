@@ -1,0 +1,8 @@
+
+# CLI tool, only in development environment.
+# https://goframe.org/pages/viewpage.action?pageId=3673173
+gfcli:
+  gen:
+    dao:
+      - link:     "mysql:focus:3EKXxTbP8tRdCGeA@tcp(39.108.236.73:3306)/focus"
+        removePrefix: "jin_"

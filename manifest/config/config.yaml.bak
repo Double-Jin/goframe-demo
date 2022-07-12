@@ -1,0 +1,62 @@
+server:
+  address:     ":8000"
+  openapiPath: "/api.json"
+  swaggerPath: "/swagger"
+
+logger:
+  level : "all"
+  stdout: true
+
+
+#JWT
+jwt:
+  version:        "1.0"                       # 版本号
+  expires:        "864000"                     # 有效期，单位：秒
+  sign:           "jin"                     # 秘钥，考虑安全问题请修改默认值
+  multiPort:      true                        # 是否允许多端登录，默认为true
+
+oss:
+  endpoint: "oss-cn-shenzhen.aliyuncs.com"
+  accessKeyId: "xxxxxx"
+  accessKeySecret: "xxxxxx"
+  bucket: "xxxxx"
+  oss_url: "xxxxxxx"
+
+
+# 路由配置
+router:
+  # 后台
+  admin:
+    # 前缀
+    prefix: "/Admin"
+    # 不需要验证登录的路由地址
+    exceptLogin: [
+        "/Login/Sign",            # 登录
+        "/Admin/UploadFile",            # 上传文件
+    ]
+
+  # 接口
+  api:
+    # 前缀
+    prefix: "/api"
+    # 不需要验证登录的路由地址
+    exceptPath: []
+
+# Database.
+database:
+  logger:
+    level:   "all"
+    stdout:  true
+
+  default:
+    link:   "mysql:focus:123456@tcp(127.0.0.1:3306)/focus"
+    debug:  true
+    Prefix: "jin_"
+
+# Redis数据库配置
+redis:
+  default:
+    address:        "127.0.0.1:6379"
+    db:             "5"
+    pass:           "123456"
+    idleTimeout:    "20"
