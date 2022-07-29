@@ -2,6 +2,13 @@ server:
   address:     ":8000"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
+  # 日志基本配置
+  logPath: "./log/"                 # 日志文件存储目录路径，建议使用绝对路径。默认为空，表示关闭
+  logStdout: false               # 日志是否输出到终端。默认为true
+  errorStack: true               # 当Server捕获到异常时是否记录堆栈信息到日志中。默认为true
+  errorLogEnabled: true               # 是否记录异常日志信息到日志中。默认为true
+  errorLogPattern: "{Y-m-d}.log"  # 异常错误日志文件格式。默认为"error-{Ymd}.log"
+
 
 logger:
   level : "all"
@@ -45,6 +52,7 @@ router:
 # Database.
 database:
   logger:
+    path:   "./log/"
     level:   "all"
     stdout:  true
 

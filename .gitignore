@@ -19,3 +19,4 @@ output/
 manifest/output/
 manifest/config/config.yaml
 temp/
+log/
