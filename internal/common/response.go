@@ -32,7 +32,7 @@ func (component *response) RJson(r *ghttp.Request, code int, message string, dat
 	}
 
 	// TODO  如果不是正常的返回，则将data转为error
-	if consts.CodeOK == code {
+	if consts.CodeOK.Code() == code {
 		Res.Data = responseData
 	} else {
 		Res.Error = responseData
@@ -51,16 +51,16 @@ func (component *response) RJson(r *ghttp.Request, code int, message string, dat
 
 func (component *response) SusJson(isExit bool, r *ghttp.Request, message string, data ...interface{}) {
 	if isExit {
-		component.JsonExit(r, consts.CodeOK, message, data...)
+		component.JsonExit(r, consts.CodeOK.Code(), message, data...)
 	}
-	component.RJson(r, consts.CodeOK, message, data...)
+	component.RJson(r, consts.CodeOK.Code(), message, data...)
 }
 
 func (component *response) FailJson(isExit bool, r *ghttp.Request, message string, data ...interface{}) {
 	if isExit {
-		component.JsonExit(r, consts.CodeNil, message, data...)
+		component.JsonExit(r, consts.CodeNotFound.Code(), message, data...)
 	}
-	component.RJson(r, consts.CodeNil, message, data...)
+	component.RJson(r, consts.CodeNotFound.Code(), message, data...)
 }
 
 

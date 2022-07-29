@@ -1,0 +1,103 @@
+2022-07-29 17:20:14.241 [DEBU] {1812c7b14d4206172d3a22228828c05b} [ 46 ms] [default] [rows:15 ] SHOW FULL COLUMNS FROM `jin_admin`
+2022-07-29 17:20:14.262 [DEBU] {1812c7b14d4206172d3a22228828c05b} [ 20 ms] [default] [rows:1  ] SELECT `id`,`login_name`,`admin_name`,`admin_img`,`password`,`sex`,`id_card`,`phone`,`fixed_line_telephone`,`admin_status`,`create_time`,`update_time`,`admin_sn`,`ip`,`location` FROM `jin_admin` WHERE id=1 LIMIT 1
+2022-07-29 17:20:24.369 [DEBU] {b898c30e504206172e3a222276c40d53} [ 24 ms] [default] [rows:1  ] SELECT `id`,`login_name`,`admin_name`,`admin_img`,`password`,`sex`,`id_card`,`phone`,`fixed_line_telephone`,`admin_status`,`create_time`,`update_time`,`admin_sn`,`ip`,`location` FROM `jin_admin` WHERE id=1 LIMIT 1
+2022-07-29 17:20:42.145 [DEBU] {c87a2232544206172f3a22229125a911} [ 27 ms] [default] [rows:1  ] SELECT `id`,`login_name`,`admin_name`,`admin_img`,`password`,`sex`,`id_card`,`phone`,`fixed_line_telephone`,`admin_status`,`create_time`,`update_time`,`admin_sn`,`ip`,`location` FROM `jin_admin` WHERE id=1 LIMIT 1
+2022-07-29 17:20:51.202 [INFO] pid[37924]: all servers shutdown
+2022-07-29 17:20:52.699 [INFO] swagger ui is serving at address: http://127.0.0.1:8000/swagger/
+2022-07-29 17:20:52.699 [INFO] openapi specification is serving at address: http://127.0.0.1:8000/api.json
+2022-07-29 17:20:52.700 [INFO] pid[37969]: http server started listening on [:8000]
+
+  ADDRESS | METHOD |          ROUTE          |                             HANDLER                             |           MIDDLEWARE             
+----------|--------|-------------------------|-----------------------------------------------------------------|----------------------------------
+  :8000   | ALL    | /*                      | github.com/gogf/gf/v2/net/ghttp.internalMiddlewareServerTracing | GLOBAL MIDDLEWARE                
+----------|--------|-------------------------|-----------------------------------------------------------------|----------------------------------
+  :8000   | GET    | /Admin/Admin/GetInfo    | goframe/internal/controller/admin.(*cAdmin).GetInfo             | middleware.(*sMiddleware).Ctx    
+          |        |                         |                                                                 | middleware.(*sMiddleware).CORS   
+          |        |                         |                                                                 | ghttp.MiddlewareHandlerResponse  
+          |        |                         |                                                                 | middleware.HandlerResponse       
+----------|--------|-------------------------|-----------------------------------------------------------------|----------------------------------
+  :8000   | POST   | /Admin/Admin/UploadFile | goframe/internal/controller/admin.(*cAdmin).UploadFile          | middleware.(*sMiddleware).Ctx    
+          |        |                         |                                                                 | middleware.(*sMiddleware).CORS   
+          |        |                         |                                                                 | ghttp.MiddlewareHandlerResponse  
+          |        |                         |                                                                 | middleware.HandlerResponse       
+----------|--------|-------------------------|-----------------------------------------------------------------|----------------------------------
+  :8000   | POST   | /Admin/Login/Logout     | goframe/internal/controller/admin.(*cAdmin).Logout              | middleware.(*sMiddleware).Ctx    
+          |        |                         |                                                                 | middleware.(*sMiddleware).CORS   
+          |        |                         |                                                                 | ghttp.MiddlewareHandlerResponse  
+          |        |                         |                                                                 | middleware.HandlerResponse       
+----------|--------|-------------------------|-----------------------------------------------------------------|----------------------------------
+  :8000   | POST   | /Admin/Login/Sign       | goframe/internal/controller/admin.(*cAdmin).Sign                | middleware.(*sMiddleware).Ctx    
+          |        |                         |                                                                 | middleware.(*sMiddleware).CORS   
+          |        |                         |                                                                 | ghttp.MiddlewareHandlerResponse  
+          |        |                         |                                                                 | middleware.HandlerResponse       
+----------|--------|-------------------------|-----------------------------------------------------------------|----------------------------------
+  :8000   | ALL    | /api.json               | github.com/gogf/gf/v2/net/ghttp.(*Server).openapiSpec           |                                  
+----------|--------|-------------------------|-----------------------------------------------------------------|----------------------------------
+  :8000   | ALL    | /swagger/*              | github.com/gogf/gf/v2/net/ghttp.(*Server).swaggerUI             | HOOK_BEFORE_SERVE                
+----------|--------|-------------------------|-----------------------------------------------------------------|----------------------------------
+
+2022-07-29 17:20:55.832 {48a7876357420617d8c7392237354806} 200 "GET http 127.0.0.1:8000 /Admin/Admin/GetInfo HTTP/1.1" 0.000, 127.0.0.1, "", "EOLINKER", 10001, "账号或密码错误", ""
+Stack:
+1. 账号或密码错误
+   1).  goframe/internal/logic/admin.(*sAdmin).GetInfo
+    	/Users/linjinjin/Documents/code/go/goframe/internal/logic/admin/admin.go:28
+   2).  goframe/internal/controller/admin.(*cAdmin).GetInfo
+    	/Users/linjinjin/Documents/code/go/goframe/internal/controller/admin/admin.go:16
+   3).  github.com/gogf/gf/v2/net/ghttp.(*middleware).callHandlerFunc.func1
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:152
+   4).  github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_func.go:55
+   5).  github.com/gogf/gf/v2/net/ghttp.(*middleware).callHandlerFunc
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:129
+   6).  github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:75
+   7).  github.com/gogf/gf/v2/util/gutil.TryCatch
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/util/gutil/gutil.go:56
+   8).  github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:49
+   9).  goframe/internal/middleware.HandlerResponse
+    	/Users/linjinjin/Documents/code/go/goframe/internal/middleware/handlerResponse.go:16
+   10). github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.1
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:55
+   11). github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_func.go:55
+   12). github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:54
+   13). github.com/gogf/gf/v2/util/gutil.TryCatch
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/util/gutil/gutil.go:56
+   14). github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:49
+   15). github.com/gogf/gf/v2/net/ghttp.MiddlewareHandlerResponse
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_middleware_handler_response.go:25
+   16). github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.1
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:55
+   17). github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_func.go:55
+   18). github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:54
+   19). github.com/gogf/gf/v2/util/gutil.TryCatch
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/util/gutil/gutil.go:56
+   20). github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:49
+   21). goframe/internal/middleware.(*sMiddleware).CORS
+    	/Users/linjinjin/Documents/code/go/goframe/internal/middleware/middleware.go:48
+   22). github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.1
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:55
+   23). github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_func.go:55
+   24). github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:54
+   25). github.com/gogf/gf/v2/util/gutil.TryCatch
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/util/gutil/gutil.go:56
+   26). github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:49
+   27). goframe/internal/middleware.(*sMiddleware).Ctx
+    	/Users/linjinjin/Documents/code/go/goframe/internal/middleware/middleware.go:42
+   28). github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.1
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:55
+   29). github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_func.go:55
+   30). github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    	/Users/linjinjin/go/pkg/mod/github.com/gogf/gf/v2@v2.1.1/net/ghttp/ghttp_request_middleware.go:54
+
+2022-07-29 17:21:05.558 [INFO] pid[37969]: all servers shutdown

@@ -3,7 +3,9 @@ package file
 import (
 	"context"
 	"fmt"
+	"github.com/gogf/gf/v2/errors/gcode"
 	apiAdmin "goframe/api/v1/admin"
+	"goframe/internal/consts"
 	"goframe/internal/service"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
@@ -28,7 +30,7 @@ func (s *sFile) UploadLocal(ctx context.Context, req *apiAdmin.UploadFileReq) (r
 	names, err := files.Save("public/upload/")
 
 	if err != nil {
-		err = gerror.New("文件上传失败")
+		err = gerror.NewCode(gcode.New(consts.FileError.Code(), consts.FileError.Desc(), nil))
 		return
 	}
 

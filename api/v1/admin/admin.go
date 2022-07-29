@@ -10,6 +10,6 @@ type AdminReq struct {
 }
 
 type AdminRes struct {
-	g.Meta `mime:"application/json"`
+	//g.Meta `mime:"application/json"`
 	*entity.Admin
 }

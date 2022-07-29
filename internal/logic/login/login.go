@@ -32,12 +32,12 @@ func (s *sLogin) Sign(ctx context.Context, req *apiAdmin.LoginReq) (res *apiAdmi
 	err = dao.Admin.Ctx(ctx).Where("phone=?", req.Phone).Scan(&adminInfo)
 
 	if err != nil {
-		err = gerror.Wrap(err, consts.ErrorORM)
+		err = gerror.Wrap(err, consts.SqlError.Desc())
 		return nil, err
 	}
 
 	if adminInfo == nil {
-		err = gerror.New(consts.ErrorNotData)
+		err = gerror.New(consts.SqlError.Desc())
 		return
 	}
 
