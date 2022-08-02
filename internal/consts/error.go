@@ -22,7 +22,9 @@ const (
 	AccountLock           ErrCode = 10002
 	CaptchaInvalid        ErrCode = 10003
 	SqlError              ErrCode = 10004
-	FileError              ErrCode = 10005
+	FileError             ErrCode = 10005
+	TokenExpired          ErrCode = 20000
+	TokenFail             ErrCode = 20001
 )
 
 var errCodeName = map[ErrCode]string{
@@ -37,7 +39,9 @@ var errCodeName = map[ErrCode]string{
 	CodeBusinessFailed:    "业务出错",
 	CaptchaInvalid:        "验证码输入错误",
 	SqlError:              "查询错误",
-	FileError:              "文件上传失败",
+	FileError:             "文件上传失败",
+	TokenExpired:          "token不正确或已过期",
+	TokenFail:             "token解析失败",
 }
 
 func (e ErrCode) Desc() string {

@@ -1,28 +1,47 @@
 package common
 
 import (
+	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"goframe/api/v1/admin"
-	"goframe/internal/consts"
 	"time"
 )
+
+type DefaultResponse struct {
+	Code    int         `json:"code"    dc:"Error code"`
+	Message string      `json:"message" dc:"Error message"`
+	Data    interface{} `json:"data"    dc:"Result data for certain request according API definition"`
+}
 
 // 统一响应
 var Response = new(response)
 
 type response struct{}
 
-func (component *response) JsonExit(r *ghttp.Request, code int, message string, data ...interface{}) {
-	component.RJson(r, code, message, data...)
-	r.Exit()
+
+func (component *response) SuccessJson(r *ghttp.Request) {
+	var (
+		err  = r.GetError()
+		res  = r.GetHandlerResponse()
+		code = gerror.Code(err)
+	)
+
+	defaultResponse := DefaultResponse{
+		Code:    code.Code(),
+		Message: code.Message(),
+		Data:    res,
+	}
+
+	// TODO  清空响应
+	r.Response.ClearBuffer()
+
+	// TODO  写入响应
+	r.Response.WriteJson(defaultResponse)
+
 }
 
 
-func (component *response) RJson(r *ghttp.Request, code int, message string, data ...interface{}) {
-	responseData := interface{}(nil)
-	if len(data) > 0 {
-		responseData = data[0]
-	}
+func (component *response) LoginFailJson(r *ghttp.Request, code int, message string) {
 
 	Res := &admin.Response{
 		Code:      code,
@@ -31,43 +50,21 @@ func (component *response) RJson(r *ghttp.Request, code int, message string, dat
 		ReqId:     Context.Get(r.Context()).ReqId,
 	}
 
-	// TODO  如果不是正常的返回，则将data转为error
-	if consts.CodeOK.Code() == code {
-		Res.Data = responseData
-	} else {
-		Res.Error = responseData
+	defaultResponse := DefaultResponse{
+		Code:    code,
+		Message: message,
+		Data:    "",
 	}
 
 	// TODO  清空响应
 	r.Response.ClearBuffer()
 
 	// TODO  写入响应
-	r.Response.WriteJson(Res)
+	r.Response.WriteJson(defaultResponse)
 
 	// TODO  加入到上下文
 	Context.SetResponse(r.Context(), Res)
+
 }
 
 
-func (component *response) SusJson(isExit bool, r *ghttp.Request, message string, data ...interface{}) {
-	if isExit {
-		component.JsonExit(r, consts.CodeOK.Code(), message, data...)
-	}
-	component.RJson(r, consts.CodeOK.Code(), message, data...)
-}
-
-func (component *response) FailJson(isExit bool, r *ghttp.Request, message string, data ...interface{}) {
-	if isExit {
-		component.JsonExit(r, consts.CodeNotFound.Code(), message, data...)
-	}
-	component.RJson(r, consts.CodeNotFound.Code(), message, data...)
-}
-
-
-func (component *response) Redirect(r *ghttp.Request, location string, code ...int) {
-	r.Response.RedirectTo(location, code...)
-}
-
-func (component *response) Download(r *ghttp.Request, location string, code ...int) {
-	r.Response.ServeFileDownload("test.txt")
-}

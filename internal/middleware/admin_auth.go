@@ -8,7 +8,6 @@ package middleware
 
 import (
 	"github.com/gogf/gf/v2/crypto/gmd5"
-	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/text/gstr"
@@ -35,11 +34,9 @@ func AdminAuth(r *ghttp.Request) {
 	/// TODO  不需要验证登录的路由地址
 	if utils.Auth.IsExceptLogin(ctx, path) {
 		r.Middleware.Next()
-		return
 	}
-
 	if authorization == "" {
-		common.Response.JsonExit(r, gcode.CodeNotAuthorized.Code(), "请先登录！")
+		common.Response.LoginFailJson(r,consts.TokenExpired.Code(),consts.TokenExpired.Desc())
 		return
 	}
 
@@ -49,23 +46,26 @@ func AdminAuth(r *ghttp.Request) {
 
 	data, ParseErr := common.Jwt.ParseToken(authorization, jwtSign.Bytes())
 	if ParseErr != nil {
-		common.Response.JsonExit(r, gcode.CodeNotAuthorized.Code(), "token不正确或已过期！", ParseErr.Error())
+		common.Response.LoginFailJson(r,consts.TokenExpired.Code(),consts.TokenExpired.Desc())
+		return
+
 	}
 
 	parseErr := gconv.Struct(data, &adminInfo)
 	if parseErr != nil {
-		common.Response.JsonExit(r, gcode.CodeNotAuthorized.Code(), "登录信息解析异常，请重新登录！", parseErr.Error())
+		common.Response.LoginFailJson(r,consts.TokenFail.Code(),consts.TokenFail.Desc())
+		return
 	}
 
 	// TODO  判断token跟redis的缓存的token是否一样
 	cache := common.Cache.New()
 	isContains, containsErr := cache.Contains(ctx, jwtToken)
 	if containsErr != nil {
-		common.Response.JsonExit(r, gcode.CodeNotAuthorized.Code(), "token无效！", containsErr.Error())
+		common.Response.LoginFailJson(r,consts.TokenFail.Code(),consts.TokenFail.Desc())
 		return
 	}
 	if !isContains {
-		common.Response.JsonExit(r, gcode.CodeNotAuthorized.Code(), "token已过期！")
+		common.Response.LoginFailJson(r,consts.TokenFail.Code(),consts.TokenFail.Desc())
 		return
 	}
 
@@ -80,6 +80,7 @@ func AdminAuth(r *ghttp.Request) {
 			Phone:      adminInfo.Phone,
 		}
 	}
+
 	common.Context.SetAdmin(ctx, customCtx.Admin)
 
 	r.Middleware.Next()

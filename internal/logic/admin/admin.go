@@ -27,7 +27,6 @@ func (s *sAdmin) GetInfo(ctx context.Context, req *apiAdmin.AdminReq) (res *apiA
 
 	if err != nil {
 		err = gerror.NewCode(gcode.New(consts.AccountPassWordFailed.Code(), consts.AccountPassWordFailed.Desc(), nil))
-		//fmt.Println(err)
 		return nil, err
 	}
 
